@@ -4,7 +4,7 @@ from modules.validate import Validate
 import base64
 import os
 from sendgrid.helpers.mail import (
-    Mail, Attachment, FileContent, FileName,
+    Mail, Attachment, FileName,
     FileType, Disposition, ContentId)
 from sendgrid import SendGridAPIClient
 
@@ -28,7 +28,7 @@ def send_certificate_by_mail(name, to_email, file_path):
         f.close()
     encoded = base64.b64encode(data).decode()
     attachment = Attachment()
-    attachment.file_content = FileContent(encoded)
+    attachment.file_content = sendgrid.helpers.mail.FileContent(encoded)
     attachment.file_type = FileType('image/png')
     attachment.file_name = FileName(filename)
     attachment.disposition = Disposition('attachment')
